@@ -32,7 +32,6 @@
             position: relative;
         }
 
-        /* 헤더: 로고만 제거하고 좌측 정렬 유지 */
         .header { margin-bottom: 45px; display: flex; align-items: flex-start; }
         .header-text { display: flex; flex-direction: column; }
         
@@ -95,7 +94,6 @@
 <div class="container">
     <div class="form-container">
         <div class="header">
-            <!-- 로고 이미지 삭제됨 -->
             <div class="header-text">
                 <h1>Order Form</h1>
                 <p>(PC환경에 최적화 되어있습니다.)</p>
@@ -189,6 +187,7 @@
             return checked.map(function(el) { return el.value; }).join(', ') || '선택안함';
         };
 
+        // 복사될 텍스트 구성 (마지막 줄에 요청하신 문구 추가)
         var text = "[DAON 신청서]\n" +
                    "■ 채널: " + getVal('channel') + "\n" +
                    "■ 원곡: " + getVal('original_link') + "\n" +
@@ -197,17 +196,20 @@
                    "■ 언어: " + getCheck('lang') + "\n" +
                    "■ 옵션: " + getCheck('opt') + "\n" +
                    "■ 마감일: " + getVal('deadline') + "\n" +
-                   "■ 연출/크레딧: \n" + getVal('credit');
-                   "※ 반드시 준비하신 자료(일러스트/음원 등)을 함께 첨부하여 문의해주세요!";
-        
+                   "■ 연출/크레딧: \n" + getVal('credit') + "\n\n" +
+                   "반드시 준비하신 자료(일러스트/음원 등)을 함께 첨부하여 문의해주세요!";
+
         var t = document.createElement("textarea");
         document.body.appendChild(t);
         t.value = text;
         t.select();
-        document.execCommand('copy');
+        try {
+            document.execCommand('copy');
+            alert('양식이 복사되었습니다! 아트머그 문의창에 붙여넣어 주세요.\n\n※ 내용 확인 없이 체크박스에 확인하신 경우 생기는 문제에 대한 책임은 의뢰인에게 있습니다.');
+        } catch (err) {
+            alert('복사에 실패했습니다. 직접 복사해주세요.');
+        }
         document.body.removeChild(t);
-        
-        alert('양식이 복사되었습니다! 아트머그 문의창에 붙여넣어 주세요. ※내용 확인 없이 체크박스에 확인하신 경우 생기는 문제에 대해 책임은 의뢰주에게 있습니다.');
     }
 </script>
 </body>
