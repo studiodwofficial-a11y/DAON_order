@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAON : Order Form</title>
+    <style>
+        :root { 
+            --point: #7fb3d5; /* 파스텔 블루 */
+            --glow: #a9cce3; /* 연한 파스텔 블루 */
+            --bg: transparent; 
+            --card: #ffffff; /* 화이트 배경 */
+            --input-bg: #f4f7f9; /* 아주 연한 블루톤 화이트 */
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', 'Malgun Gothic', sans-serif; }
+        
+        body { background-color: var(--bg); color: #1a1a1a; padding: 20px; display: flex; justify-content: center; }
+        
+        .container { max-width: 1180px; width: 100%; }
+
+        .form-container { 
+            background-color: var(--card);
+            background-image: 
+                radial-gradient(rgba(127, 179, 213, 0.12) 1px, transparent 1px),
+                linear-gradient(180deg, rgba(127, 179, 213, 0.03) 0%, rgba(0, 0, 0, 0) 100%);
+            background-size: 22px 22px, 100% 100%;
+            padding: 50px 60px; 
+            border: 1.5px solid #e1e8ed;
+            border-radius: 35px;
+            box-shadow: none; 
+            position: relative;
+        }
+
+        /* 헤더: 로고만 제거하고 좌측 정렬 유지 */
+        .header { margin-bottom: 45px; display: flex; align-items: flex-start; }
+        .header-text { display: flex; flex-direction: column; }
+        
+        .header h1 { color: var(--point); font-size: 36px; font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; }
+        .header p { color: #555; font-size: 16px; font-weight: 500; opacity: 0.8; margin-top: 5px; }
+
+        .form-group { margin-bottom: 30px; }
+        .form-group label.title { display: block; color: var(--point); font-weight: 700; margin-bottom: 12px; font-size: 15px; }
+        .form-group label.title span { color: var(--point); opacity: 0.7; font-weight: 400; font-size: 13px; margin-left: 5px; }
+
+        input[type="text"], input[type="date"], textarea {
+            width: 100%; padding: 16px 22px; background: var(--input-bg); border: 2px solid transparent;
+            border-radius: 50px; font-size: 15px; color: #1a1a1a; outline: none; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        textarea { border-radius: 20px; min-height: 140px; resize: vertical; line-height: 1.6; }
+
+        input:focus, textarea:focus { 
+            background: #fff; 
+            border-color: var(--glow); 
+            box-shadow: 0 0 15px rgba(169, 204, 227, 0.6); 
+            transform: translateY(-2px);
+        }
+
+        .checkbox-group { display: flex; flex-wrap: wrap; gap: 12px 25px; padding: 5px; }
+        .checkbox-label { display: flex; align-items: center; cursor: pointer; font-size: 14px; color: #444; transition: 0.2s; }
+        .checkbox-label:hover { color: var(--point); }
+
+        input[type="checkbox"], input[type="radio"] { appearance: none; -webkit-appearance: none; width: 19px; height: 19px; background: #e1e8ed; margin-right: 10px; cursor: pointer; position: relative; transition: 0.2s; }
+        input[type="radio"] { border-radius: 50%; }
+        input[type="checkbox"] { border-radius: 5px; }
+        input:checked { background-color: var(--point); box-shadow: 0 0 8px rgba(127, 179, 213, 0.4); }
+        input:checked::after { content: '✔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 11px; font-weight: 900; }
+
+        .submit-area { text-align: center; margin-top: 45px; }
+        .submit-btn {
+            background: linear-gradient(to bottom, #a9cce3 0%, #7fb3d5 100%);
+            color: #fff; border: none; padding: 18px 80px; font-size: 24px; font-weight: 900; border-radius: 60px;
+            cursor: pointer; transition: 0.3s; box-shadow: 0 6px 0 #5d93b8;
+        }
+        .submit-btn:hover { filter: brightness(1.1); }
+        .submit-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #5d93b8; }
+
+        .copyright {
+            position: absolute; bottom: 30px; left: 40px; 
+            font-size: 10px; font-weight: 900; color: var(--point); 
+            opacity: 0.3; letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) { 
+            .form-container { padding: 35px 25px; } 
+            .header h1 { font-size: 26px; } 
+            .submit-btn { width: 100%; padding: 16px 0; font-size: 20px; }
+            .copyright { left: 25px; bottom: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <div class="header">
+            <!-- 로고 이미지 삭제됨 -->
+            <div class="header-text">
+                <h1>Order Form</h1>
+                <p>(PC환경에 최적화 되어있습니다.)</p>
+            </div>
+        </div>
+
+        <form id="orderForm">
+            <div class="form-group">
+                <label class="title">업로드 채널 <span>(링크)</span></label>
+                <input type="text" id="channel" placeholder="채널 링크를 입력해주세요">
+            </div>
+
+            <div class="form-group">
+                <label class="title">원곡 링크 <span>(Youtube 등)</span></label>
+                <input type="text" id="original_link" placeholder="참고 링크를 입력해주세요">
+            </div>
+
+            <div class="form-group">
+                <label class="title">사용 용도</label>
+                <input type="text" id="usage" placeholder="Youtube / 생방송(soop, 치지직, youtube 등)송출 / 오프라인 등">
+            </div>
+
+            <div class="form-group">
+                <label class="title">신청 타입</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="radio" name="type" value="자막"> 자막</label>
+                    <label class="checkbox-label"><input type="radio" name="type" value="심플"> 심플</label>
+                    <label class="checkbox-label"><input type="radio" name="type" value="프리미엄"> 프리미엄</label>
+                    <label class="checkbox-label"><input type="radio" name="type" value="시그니처"> 시그니처</label>
+                    <label class="checkbox-label"><input type="radio" name="type" value="상담희망"> 상담희망</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="title">자막 언어</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="radio" name="lang" value="한국어"> 한국어</label>
+                    <label class="checkbox-label"><input type="radio" name="lang" value="일본어"> 일본어</label>
+                    <label class="checkbox-label"><input type="radio" name="lang" value="영어"> 영어</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="title">추가옵션 <span>(중복 가능)</span></label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" name="opt" value="썸네일"> 썸네일</label>
+                    <label class="checkbox-label"><input type="checkbox" name="opt" value="배경(간단)"> 배경(간단)</label>
+                    <label class="checkbox-label"><input type="checkbox" name="opt" value="배경(고급)"> 배경(고급)</label>
+                    <label class="checkbox-label"><input type="checkbox" name="opt" value="수익창출"> 수익창출</label>
+                    <label class="checkbox-label"><input type="checkbox" name="opt" value="빠른마감"> 빠른마감</label>
+                    <label class="checkbox-label"><input type="checkbox" name="opt" value="쇼츠추가"> 쇼츠추가</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="title">희망 마감일</label>
+                <input type="date" id="deadline">
+            </div>
+
+            <div class="form-group">
+                <label class="title">희망 연출 / 크레딧</label>
+                <textarea id="credit" placeholder="연출 희망 사항이나 크레딧 정보 / 녹음, 일러스트 발주 과정에서 의도하시거나 느끼셨던 감정or해석 등 전달해주시면 더 좋습니다! ^.^"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-label" style="color: var(--point); font-weight: bold;">
+                    <input type="checkbox" id="agree"> 상기 안내사항을 확인하고 이에 동의합니다.
+                </label>
+            </div>
+
+            <div class="submit-area">
+                <button type="button" class="submit-btn" onclick="copyResult()">작성완료</button>
+                <p style="color: #666; font-size: 13px; margin-top: 15px;">※ 버튼 클릭 시 양식이 복사됩니다.</p>
+            </div>
+        </form>
+        
+        <div class="copyright">©by STUDIO DW</div>
+    </div>
+</div>
+
+<script>
+    function copyResult() {
+        if(!document.getElementById('agree').checked) {
+            alert('안내사항 동의에 체크해주세요!'); 
+            return; 
+        }
+
+        var getVal = function(id) { return document.getElementById(id).value || '미입력'; };
+        var getCheck = function(name) {
+            var checked = Array.from(document.querySelectorAll('input[name="' + name + '"]:checked'));
+            return checked.map(function(el) { return el.value; }).join(', ') || '선택안함';
+        };
+
+        var text = "[DAON 신청서]\n" +
+                   "■ 채널: " + getVal('channel') + "\n" +
+                   "■ 원곡: " + getVal('original_link') + "\n" +
+                   "■ 용도: " + getVal('usage') + "\n" +
+                   "■ 타입: " + getCheck('type') + "\n" +
+                   "■ 언어: " + getCheck('lang') + "\n" +
+                   "■ 옵션: " + getCheck('opt') + "\n" +
+                   "■ 마감일: " + getVal('deadline') + "\n" +
+                   "■ 연출/크레딧: \n" + getVal('credit');
+
+        var t = document.createElement("textarea");
+        document.body.appendChild(t);
+        t.value = text;
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+        
+        alert('양식이 복사되었습니다! 아트머그 문의창에 붙여넣어 주세요. ※내용 확인 없이 체크박스에 확인하신 경우 생기는 문제에 대해 책임은 의뢰주에게 있습니다.');
+    }
+</script>
+</body>
+</html>
